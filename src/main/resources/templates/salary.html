@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Salary</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <a th:href="@{/canteens}" class="btn action">Back</a>
+    <h1 id="canteenName">Salary</h1>
+  </header>
+  <main class="layout">
+    <div class="content">
+      <section class="card">
+        <h3>Mark Salary</h3>
+        <form id="markSalaryForm" class="form-grid">
+          <label for="salaryWorkerSelect">Worker</label>
+          <select id="salaryWorkerSelect" required>
+            <option value="">-- Select worker --</option>
+          </select>
+
+          <label for="salaryStatus">Status</label>
+          <select id="salaryStatus"><option value="PAID">PAID</option><option value="PENDING">PENDING</option></select>
+
+          <div></div>
+          <button type="submit" class="btn action">Update</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h3>View Salaries</h3>
+        <div class="btn-row">
+          <button id="viewPaid" class="btn">View Paid</button>
+          <button id="viewPending" class="btn">View Pending</button>
+        </div>
+        <div id="salaryList" class="list">(loading...)</div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

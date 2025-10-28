@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Food Management</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a th:href="@{/canteens}" class="btn action">Back</a>
+      <h1 class="app-title" th:text="${canteenName}">Canteen</h1>
+      <div></div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="content">
+      <section class="card">
+        <h3>Meal</h3>
+        <div class="meal-buttons">
+          <select id="mealSelect">
+            <option value="MORNING">Morning</option>
+            <option value="AFTERNOON">Afternoon</option>
+            <option value="NIGHT">Night</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Record Purchase (plates produced)</h3>
+        <form id="purchaseForm" class="form-grid">
+          <input id="purchaseCount" type="number" min="0" value="0" />
+          <div></div>
+          <button type="submit" class="btn action">Record Purchase</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h3>Record Sale</h3>
+        <form id="saleForm" class="form-grid">
+          <input id="saleCount" type="number" min="0" value="0" />
+          <div></div>
+          <button type="submit" class="btn action">Record Sale</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h3>Inventory / Dashboard</h3>
+        <div>Remaining plates today: <span id="remaining">-</span></div>
+        <div>Total sales today (₹): <span id="sales">-</span></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

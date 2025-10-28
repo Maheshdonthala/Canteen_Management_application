@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canteen Management</title>
+    <link rel="stylesheet" href="/style.css">
+    <!-- CSRF token for AJAX requests -->
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <h1 class="app-title">Canteen Management System</h1>
+            <div class="user-greeting">Hello, <span th:text="${(#httpServletRequest != null and #httpServletRequest.remoteUser != null) ? #httpServletRequest.remoteUser : 'Guest'}">Guest</span></div>
+            <div class="auth-links">
+                <a th:href="@{/login}" th:if="${#httpServletRequest == null or #httpServletRequest.remoteUser == null}">Login</a>
+                <a th:href="@{/logout}" th:if="${#httpServletRequest != null and #httpServletRequest.remoteUser != null}">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Canteens</h2>
+                <div class="canteen-list">
+                    <!-- If authenticated, the real canteen list is populated by JS; otherwise show placeholders -->
+                    <button class="btn canteen">Canteen 1</button>
+                    <button class="btn canteen">Canteen 2</button>
+                    <button class="btn canteen">Canteen 3</button>
+                </div>
+                <button class="btn add-canteen">+ Add Canteen</button>
+            </div>
+        </aside>
+
+        <section class="content">
+            <!-- If user is authenticated, show only canteens + add form. Otherwise show landing cards -->
+            <div th:if="${#httpServletRequest != null and #httpServletRequest.remoteUser != null}">
+                <div class="create-canteen">
+                    <h3>Add Canteen</h3>
+                    <form id="canteenForm">
+                        <input id="name" placeholder="Name" required />
+                        <input id="location" placeholder="Location" required />
+                        <input id="price" placeholder="Price" type="number" step="0.01" value="5.0" required />
+                        <button type="submit" class="btn action">Create</button>
+                    </form>
+                    <div id="message" style="margin-top:8px;color:var(--red)"></div>
+                </div>
+            </div>
+
+            <div th:if="${#httpServletRequest == null or #httpServletRequest.remoteUser == null}">
+                <div class="cards">
+                    <article class="card">
+                        <h3>Food</h3>
+                        <p>Track plates bought / sold and revenue. Price per plate: ₹5 (default).</p>
+                        <div class="meal-buttons">
+                            <button class="btn meal">Morning</button>
+                            <button class="btn meal">Afternoon</button>
+                            <button class="btn meal">Night</button>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <h3>Attendance</h3>
+                        <p>Record in/out times for workers and view recent attendance.</p>
+                        <button class="btn action">Open Attendance</button>
+                    </article>
+
+                    <article class="card">
+                        <h3>Salary</h3>
+                        <p>Mark paid/unpaid salaries and view pending payments.</p>
+                        <button class="btn action">Manage Salaries</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div>© <span th:text="${T(java.time.Year).now()}">2025</span> Canteen Management</div>
+    </footer>
+</body>
+    <script>
+document.getElementById('canteenForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const location = document.getElementById('location').value;
+    const price = parseFloat(document.getElementById('price').value);
+
+    // Read CSRF token and header name from meta tags (populated by Thymeleaf)
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (csrfToken && csrfHeader) headers[csrfHeader] = csrfToken;
+
+    const res = await fetch('/api/canteens', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ name, location, defaultPlatePrice: price })
+    });
+    const msg = document.getElementById('message');
+    if (res.ok) { msg.textContent = 'Canteen created'; } else { msg.textContent = 'Failed: ' + res.status; }
+});
+</script>
+</html>

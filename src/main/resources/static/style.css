@@ -1,0 +1,190 @@
+/* File: src/main/resources/static/style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+h1 {
+    color: #4a4a8a;
+}
+/* Red / Yellow / White palette only */
+:root {
+    --red: #ff0000; /* primary red */
+    --yellow: #fee500; /* bright yellow */
+    --white: #ffffff;
+    --muted-text: #4a4a4a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0;
+    background: #fbfbfe; /* softer off-white */
+    color: var(--muted-text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+.site-header {
+    background: linear-gradient(90deg, var(--red), #b71c1c);
+    color: var(--white);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 12px;
+}
+
+.app-title { margin: 0; font-size: 1.25rem; }
+.user-greeting { font-size: 0.95rem; opacity: 0.95; }
+
+.layout {
+    display: flex;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 18px auto;
+    padding: 0 12px;
+}
+
+.sidebar {
+    width: 220px;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px;
+    border-radius: 10px;
+    align-self: flex-start;
+}
+
+.sidebar-title { margin: 0 0 12px 0; font-size: 1.05rem; }
+.canteen-list { display: flex; flex-direction: column; gap: 8px; }
+
+.btn {
+    display: inline-block;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn.canteen {
+    background: var(--white);
+    color: var(--red);
+    text-align: left;
+}
+
+.btn.add-canteen {
+    margin-top: 12px;
+    width: 100%;
+    background: var(--yellow);
+    color: var(--red);
+}
+
+.content {
+    flex: 1;
+}
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+.card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 16px;
+    border-radius: 12px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card h3 { margin: 0 0 8px 0; color: var(--red); font-size:1.05rem }
+.meal-buttons { display: flex; gap: 8px; }
+.btn.meal { background: var(--yellow); color: var(--red); }
+.btn.action { background: var(--red); color: var(--white); }
+
+.card:hover { transform: translateY(-6px); box-shadow: 0 14px 34px rgba(0,0,0,0.10); }
+
+.btn { transition: transform 120ms ease, box-shadow 120ms ease; }
+.btn:active { transform: translateY(1px); }
+
+/* Tighter card grid on larger screens */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+
+/* Improve spacing for content area */
+.content { padding: 8px; }
+
+/* Improve small-card visuals */
+.small-card { padding: 14px; }
+
+/* Sidebar canteen button hover */
+.canteen-btn:hover { background: #fff0f0; transform: translateX(4px); }
+
+/* Make inputs and selects slightly larger on mobile */
+@media (max-width: 480px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .btn { padding: 10px 14px; }
+    .canteen-btn { padding: 14px; }
+}
+
+.site-footer { text-align: center; color: var(--red); padding: 12px 0; margin-top: 20px; }
+
+/* Forms and lists */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; }
+.form-grid label { font-size: 0.95rem; color: var(--muted-text); }
+.form-grid select, .form-grid input { padding: 10px; border: 1px solid #eee; border-radius: 8px; }
+
+/* Accessible larger touch targets on mobile */
+@media (max-width: 520px) {
+    .btn { padding: 12px 16px; font-size: 1rem; }
+    .card { padding: 14px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .site-header .app-title { font-size: 1.1rem }
+}
+
+.list { display: flex; flex-direction: column; gap: 8px; }
+.list-row { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-radius: 6px; background: #fff8e1; border: 1px solid #ffe082; }
+.badge { padding: 4px 8px; border-radius: 12px; font-weight: 700; }
+.badge.present { background: var(--red); color: var(--white); }
+.badge.absent { background: #999; color: var(--white); }
+.badge.paid { background: var(--red); color: var(--white); }
+.badge.pending { background: var(--yellow); color: var(--red); }
+
+.btn-row { display:flex; gap:8px; margin-bottom:8px; }
+
+/* Canteens specific */
+.large-canteens { width: 360px; padding: 20px; border-radius: 10px; }
+.canteen-buttons { display:flex; flex-direction:column; gap:10px; }
+.canteen-btn { background: var(--white); color: var(--red); padding: 12px 14px; border-radius: 8px; font-weight:700; text-align:left; border:2px solid var(--red); display:flex; justify-content:space-between; align-items:center; }
+.canteen-btn .label { display:flex; gap:10px; align-items:center; }
+.canteen-btn .num { background:var(--red); color:var(--white); width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-weight:800; }
+.small-row { display:flex; gap:16px; flex-direction:row; align-items:flex-start; }
+.small-card { flex:1; }
+
+@media (max-width: 720px) {
+    .layout { flex-direction: column; padding: 12px; }
+    .small-row { flex-direction: column; }
+    .large-canteens { width:100%; }
+    .header-inner { padding: 0 8px; }
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; }
+}

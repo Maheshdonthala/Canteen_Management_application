@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Attendance</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <a th:href="@{/canteens}" class="btn action">Back</a>
+    <h1 id="canteenName">Attendance</h1>
+  </header>
+  <main class="layout">
+    <div class="content">
+      <section class="card">
+        <h3>Record Attendance</h3>
+        <form id="attendanceForm" class="form-grid">
+          <label for="workerSelect">Worker</label>
+          <select id="workerSelect" required>
+            <option value="">-- Select worker --</option>
+          </select>
+
+          <label for="status">Status</label>
+          <select id="status"><option value="PRESENT">Present</option><option value="ABSENT">Absent</option></select>
+
+          <div></div>
+          <button type="submit" class="btn action">Record</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h3>Recent Attendance</h3>
+        <div id="attendanceList" class="list">(loading...)</div>
+      </section>
+
+      <section class="card">
+        <h3>Manage Workers</h3>
+        <form id="workerForm" class="form-grid">
+          <input id="workerId" type="hidden" />
+          <input id="workerName" placeholder="Name" required />
+          <select id="workerRole">
+            <option value="">-- Role --</option>
+            <option value="SECURITY_GUARD">Security Guard</option>
+            <option value="LABOUR">Labour</option>
+            <option value="CASHIER">Cashier</option>
+          </select>
+          <div></div>
+          <button type="submit" id="saveWorker" class="btn action">Save</button>
+          <button type="button" id="cancelWorker" class="btn">Cancel</button>
+        </form>
+
+        <div style="margin-top:12px;">Existing workers:</div>
+        <div id="workerList" class="list">(loading...)</div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
